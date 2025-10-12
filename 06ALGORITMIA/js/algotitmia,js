@@ -1,0 +1,40 @@
+function problema1(){
+  const entrada = document.getElementById('p1-input').value;
+  const textoLimpio = entrada.trim();
+  const palabras = textoLimpio.split(" ");
+  const palabrasInvertidas = palabras.map((palabra) => {
+    return palabra.split('').reverse().join('');
+  });
+  const resultado = palabrasInvertidas.toString();
+  document.getElementById('p1-output').textContent = resultado;
+}
+
+function problema2(){
+// jimmy se rifa
+}
+
+function problema3(){
+  const entrada = document.getElementById('p3-input').value;
+  const valores = entrada.trim().split(',');
+  
+  let palabraMayor = "";
+  let cantidadMaxima = 0;
+  
+  valores.forEach(valor => {
+    let caracteresUnicos = [];
+    let letrasDelValor = valor.split('');
+    
+    letrasDelValor.forEach(caracter => {
+      if(!caracteresUnicos.includes(caracter)) {
+        caracteresUnicos.push(caracter);
+      }
+    });
+    
+    if(caracteresUnicos.length > cantidadMaxima){
+      cantidadMaxima = caracteresUnicos.length;
+      palabraMayor = valor;
+    }
+  });
+  
+  document.getElementById('p3-output').textContent = palabraMayor;
+}
