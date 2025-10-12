@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3</title>
+  <link rel="stylesheet" href="./css/ejercicio2.css">
+</head>
+<body>
+  <div class="contendor-formulario">
+    <h2>Calculo de compra</h2>
+    <form action="">
+      <div>
+        <label for="">A pagar:</label><input type="text" readonly="readonly" class="input_text" style="background-color: none; border: none;" id="compraFinal">
+      </div>
+      <div>
+        <label for="">Ingrese el monto de su compra</label><input type="text" placeholder="Total compra" id="compra" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <input type="button" value="Borrar Datos" class="boton" onclick="borrarCampos()"><input type="button" value="Calcular Total" class="boton" onclick="oferta()">
+      </div>
+    </form>
+    <a href="../index.html">Regresar</a>
+  </div>
+  <script src="./js/funciones3.js"></script>
+</body>
+</html>
