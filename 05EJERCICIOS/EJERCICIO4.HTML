@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4</title>
+  <link rel="stylesheet" href="./css/ejercicio2.css">
+</head>
+<body>
+  <div class="contendor-formulario">
+    <h2>Calculo de calificaciones</h2>
+    <form action="">
+      <div>
+        <label for="">Ingrese la calificacion del proyecto</label><input type="text" placeholder="Proyecto Final" id="proyecto" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Ingrese la calificacion del examen final</label><input type="text" placeholder="Examen Final" id="examen" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Ingrese la calificacion del tercer parcial</label><input type="text" placeholder="Tercer Parcial" id="parcial3" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Ingrese la calificacion del segundo parcial</label><input type="text" placeholder="Segundo Parcial" id="parcial2" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Ingrese la calificacion del primer parcial</label><input type="text" placeholder="Primer Parcial" id="parcial1" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Calificacion final:</label><input type="text" readonly="readonly" class="input_text" style="background-color: none; border: none;" id="calificacionFinal">
+      </div>
+      <div>
+        <input type="button" value="Borrar Datos" class="boton" onclick="borrarCampos()"><input type="button" value="Calcular Calificacion" class="boton" onclick="calificacion()">
+      </div>
+    </form>
+    <a href="../index.html">Regresar</a>
+  </div>
+  <script src="./js/funciones4.js"></script>
+</body>
+</html>

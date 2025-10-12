@@ -22,11 +22,11 @@ function oferta(){
   
   if(totalCompra <= 0) return alert('El monto debe ser mayor a 0');
   
-  // Calcular descuento del 15%
+ 
   var porcentajeDescuento = 0.15;
   var descuentoAplicado = totalCompra * porcentajeDescuento;
   
-  // Calcular total a pagar (monto original - descuento)
+  
   var pagoFinal = totalCompra - descuentoAplicado;
   
   document.getElementById("compraFinal").value = "$ " + pagoFinal.toFixed(2);
