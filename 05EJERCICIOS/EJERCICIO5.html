@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5</title>
+  <link rel="stylesheet" href="./css/ejercicio2.css">
+</head>
+<body>
+  <div class="contendor-formulario">
+    <h2>Cálculo de porcentaje por género</h2>
+    <form action="">
+      <div>
+        <label for="porcentajeHombres">Porcentaje Hombres:</label>
+        <input type="text" readonly class="input_text" id="porcentajeHombres" style="border: none;">
+      </div>
+      <div>
+        <label for="porcentajeMujeres">Porcentaje Mujeres:</label>
+        <input type="text" readonly class="input_text" id="porcentajeMujeres" style="border: none;">
+      </div>
+      <div>
+        <label for="hombres">Ingrese la cantidad de hombres</label>
+        <input type="text" placeholder="Hombres" id="hombres" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="mujeres">Ingrese la cantidad de mujeres</label>
+        <input type="text" placeholder="Mujeres" id="mujeres" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <input type="button" value="Borrar Datos" class="boton" onclick="borrarCampos()">
+        <input type="button" value="Calcular Porcentaje" class="boton" onclick="calcularPorcentaje()">
+      </div>
+    </form>
+    <a href="../index.html">Regresar</a>
+  </div>
+  <script src="./js/funciones5.js"></script>
+</body>
+</html>
