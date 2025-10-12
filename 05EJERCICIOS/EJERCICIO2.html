@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2</title>
+  <link rel="stylesheet" href="./css/ejercicio2.css">
+</head>
+<body>
+  <div class="contendor-formulario">
+    <h2>Calculo de sueldo con comisiones</h2>
+    <form action="">
+      <div>
+        <label for="">Ingrese las ventas realizadas en el mes</label><input type="text" placeholder="Ventas realizadas" class="input_text" id="nventas" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Ingrese su sueldo base por mes</label><input type="text" placeholder="Sueldo Base" id="sueldo" class="input_text" onkeypress="return validarn(event)">
+      </div>
+      <div>
+        <label for="">Sueldo total:</label><input type="text" readonly="readonly" class="input_text" style="background-color: none; border: none;" id="sueldoTotal">
+      </div>
+      <div>
+        <input type="button" value="Borrar Datos" class="boton" onclick="borrarCampos()"><input type="button" value="Calcular Sueldo" class="boton" onclick="comision()">
+      </div>
+    </form>
+    <a href="../index.html">Regresar</a>
+  </div>
+  <script src="./js/funciones2,js"></script>
+</body>
+</html>

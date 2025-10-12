@@ -1,0 +1,38 @@
+function validarn(evento){
+  var tecla = (document.all) ? evento.keyCode : evento.which;
+  if(tecla == 8){
+    return true
+  }
+  var expresion = /[0-9\d .]/
+  var caracter = String.fromCharCode(tecla);
+  return expresion.test(caracter);
+}
+
+function borrarCampos(){
+  document.getElementById("sueldoTotal").value = "";
+  document.getElementById("sueldo").value = "";
+  document.getElementById("nventas").value = "";
+}
+
+function comision(){
+  var sueldoBase = document.getElementById("sueldo").value;
+  var ventasMes = document.getElementById("nventas").value;
+  
+  if(!sueldoBase || !ventasMes) return alert('Por favor complete todos los campos');
+  
+  var salarioBase = parseFloat(sueldoBase);
+  var numeroVentas = parseFloat(ventasMes);
+  
+  if(salarioBase <= 0) return alert('El sueldo base debe ser mayor a 0');
+  if(numeroVentas < 0) return alert('Las ventas no pueden ser negativas');
+  
+  // Calcular comisión por las 3 ventas (10% extra por cada venta)
+  var porcentajeComision = 0.10;
+  var comisionPorVenta = salarioBase * porcentajeComision;
+  var comisionTotal = comisionPorVenta * numeroVentas;
+  
+  // Calcular sueldo total (sueldo base + comisiones)
+  var pagoTotal = salarioBase + comisionTotal;
+  
+  document.getElementById("sueldoTotal").value = "$ " + pagoTotal.toFixed(2);
+}
