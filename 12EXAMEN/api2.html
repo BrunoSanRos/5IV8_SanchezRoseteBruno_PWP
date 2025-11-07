@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> DRAGON BALL API </h1>
+            <h1>Sanchez Rosete</h1>
+            <p>Explora el universo de Dragon Ball</p>
+        </header>
+
+        <div class="controls">
+            <button onclick="cargarPersonajesDB()">Dragon Ball</button>
+            <button onclick="cargarTodos()">Ver Todos</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar personaje..." onkeypress="buscarEnter(event)">
+            <button class="search-btn" onclick="buscarPersonaje()">🔍 Buscar</button>
+        </div>
+
+        <div id="content"></div>
+
+        <div id="charactersContainer" class="characters-grid"></div>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>
