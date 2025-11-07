@@ -169,7 +169,7 @@ async function cargarCosmeticos() {
     }
 }
 
-// Cargar skins
+
 async function cargarSkins() {
     mostrarLoading();
     try {
@@ -184,7 +184,7 @@ async function cargarSkins() {
     }
 }
 
-// Cargar emotes
+
 async function cargarEmotes() {
     mostrarLoading();
     try {
@@ -199,7 +199,7 @@ async function cargarEmotes() {
     }
 }
 
-// Cargar picos
+
 async function cargarPickaxes() {
     mostrarLoading();
     try {
@@ -214,20 +214,20 @@ async function cargarPickaxes() {
     }
 }
 
-// Cargar todos los items
+
 async function cargarTodos() {
     mostrarLoading();
     try {
         const items = await cargarCosmeticos();
         todosLosItems = items;
-        renderizarItems(items.slice(0, 50)); // Mostrar primeros 50
+        renderizarItems(items.slice(0, 50)); 
     } catch (error) {
         mostrarError('No se pudieron cargar los items');
         console.error('Error en cargarTodos:', error);
     }
 }
 
-// Buscar item
+
 function buscarItem() {
     const searchInput = document.getElementById('searchInput');
     
@@ -253,14 +253,14 @@ function buscarItem() {
     renderizarItems(resultados.slice(0, 50));
 }
 
-// Buscar al presionar Enter
+
 function buscarEnter(event) {
     if (event.key === 'Enter') {
         buscarItem();
     }
 }
 
-// Cargar tienda al iniciar
+
 window.onload = () => {
     console.log('Página cargada - Cargando tienda diaria de Fortnite');
     cargarTiendaDiaria();
