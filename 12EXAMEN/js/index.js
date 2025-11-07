@@ -1,137 +1,269 @@
-const API_BASE = 'https://dragonball-api.com/api';
-let todosLosPersonajes = [];
+const API_BASE = 'https://fortnite-api.com/v2';
+let todosLosItems = [];
 
 // Función para mostrar loading
 function mostrarLoading() {
-    document.getElementById('content').innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Cargando...</p>
-        </div>
-    `;
+    const content = document.getElementById('content');
+    const container = document.getElementById('itemsContainer');
+    
+    if (content) {
+        content.innerHTML = `
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Cargando datos de Fortnite...</p>
+            </div>
+        `;
+    }
+    
+    if (container) {
+        container.innerHTML = '';
+    }
 }
 
 // Función para mostrar error
 function mostrarError(mensaje) {
-    document.getElementById('content').innerHTML = `
-        <div class="error">
-            ❌ Error: ${mensaje}
-        </div>
-    `;
+    const content = document.getElementById('content');
+    const container = document.getElementById('itemsContainer');
+    
+    if (content) {
+        content.innerHTML = `
+            <div class="error">
+                ❌ Error: ${mensaje}
+                <br><br>
+                <small>Verifica tu conexión a internet</small>
+            </div>
+        `;
+    }
+    
+    if (container) {
+        container.innerHTML = '';
+    }
 }
 
-// Función para renderizar personajes
-function renderizarPersonajes(personajes) {
-    const container = document.getElementById('charactersContainer');
-    document.getElementById('content').innerHTML = '';
+// Obtener clase de rareza
+function obtenerClaseRareza(rarity) {
+    if (!rarity) return 'rarity-common';
+    const rarezaLower = rarity.toLowerCase();
+    return `rarity-${rarezaLower}`;
+}
+
+// Obtener nombre de rareza en español
+function obtenerNombreRareza(rarity) {
+    const rarezas = {
+        'common': 'Común',
+        'uncommon': 'Poco común',
+        'rare': 'Raro',
+        'epic': 'Épico',
+        'legendary': 'Legendario',
+        'mythic': 'Mítico'
+    };
+    return rarezas[rarity?.toLowerCase()] || rarity || 'N/A';
+}
+
+// Función para renderizar items
+function renderizarItems(items) {
+    const container = document.getElementById('itemsContainer');
+    const content = document.getElementById('content');
     
-    if (!personajes || personajes.length === 0) {
-        container.innerHTML = '<div class="no-results">No se encontraron personajes 😢</div>';
+    if (content) {
+        content.innerHTML = '';
+    }
+    
+    if (!container) {
+        console.error('No se encontró el contenedor de items');
+        return;
+    }
+    
+    if (!items || items.length === 0) {
+        container.innerHTML = '<div class="no-results">No se encontraron items 😢</div>';
         return;
     }
 
-    container.innerHTML = personajes.map(personaje => `
-        <div class="character-card">
-            <img src="${personaje.image || 'https://via.placeholder.com/280x300?text=Sin+Imagen'}" 
-                 alt="${personaje.name}" 
-                 class="character-image"
-                 onerror="this.src='https://via.placeholder.com/280x300?text=Sin+Imagen'">
-            <div class="character-info">
-                <div class="character-name">${personaje.name || 'Desconocido'}</div>
-                <div class="character-detail"><strong>Raza:</strong> ${personaje.race || 'N/A'}</div>
-                <div class="character-detail"><strong>Género:</strong> ${personaje.gender || 'N/A'}</div>
-                <div class="character-detail"><strong>Ki:</strong> ${personaje.ki || 'N/A'}</div>
-                <div class="character-detail"><strong>Max Ki:</strong> ${personaje.maxKi || 'N/A'}</div>
-                <div class="character-detail"><strong>Afiliación:</strong> ${personaje.affiliation || 'N/A'}</div>
+    console.log(`Renderizando ${items.length} items`);
+    
+    container.innerHTML = items.map(item => `
+        <div class="item-card">
+            <img src="${item.images?.icon || item.images?.smallIcon || 'https://via.placeholder.com/250?text=Sin+Imagen'}" 
+                 alt="${item.name || 'Item'}" 
+                 class="item-image"
+                 onerror="this.src='https://via.placeholder.com/250?text=Sin+Imagen'">
+            <div class="item-rarity ${obtenerClaseRareza(item.rarity?.value)}">
+                ${obtenerNombreRareza(item.rarity?.value)}
+            </div>
+            <div class="item-info">
+                <div class="item-name">${item.name || 'Desconocido'}</div>
+                <div class="item-description">${item.description || 'Sin descripción'}</div>
+                <div class="item-detail"><strong>Tipo:</strong> ${item.type?.displayValue || 'N/A'}</div>
+                <div class="item-detail"><strong>Set:</strong> ${item.set?.text || 'Ninguno'}</div>
+                ${item.shopHistory?.length > 0 ? `<div class="item-detail"><strong>Última tienda:</strong> ${new Date(item.shopHistory[0]).toLocaleDateString()}</div>` : ''}
+                ${item.price ? `<div class="item-price">💰 ${item.price} V-Bucks</div>` : ''}
             </div>
         </div>
     `).join('');
 }
 
-// Cargar personajes de Dragon Ball
-async function cargarPersonajesDB() {
-    mostrarLoading();
+// Función genérica para hacer peticiones a la API
+async function fetchAPI(endpoint) {
     try {
-        const response = await fetch(`${API_BASE}/characters?limit=100`);
+        console.log(`Haciendo petición a: ${API_BASE}${endpoint}`);
+        const response = await fetch(`${API_BASE}${endpoint}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        todosLosPersonajes = data.items || data;
-        renderizarPersonajes(todosLosPersonajes);
+        console.log('Datos recibidos:', data);
+        return data;
     } catch (error) {
-        mostrarError('No se pudieron cargar los personajes de Dragon Ball');
-        console.error(error);
+        console.error('Error en fetchAPI:', error);
+        throw error;
     }
 }
 
-// Cargar personajes de Dragon Ball Z
-async function cargarPersonajesDBZ() {
+// Cargar tienda diaria
+async function cargarTiendaDiaria() {
     mostrarLoading();
     try {
-        const response = await fetch(`${API_BASE}/characters?limit=100`);
-        const data = await response.json();
-        todosLosPersonajes = data.items || data;
-        renderizarPersonajes(todosLosPersonajes);
+        const data = await fetchAPI('/shop/br');
+        
+        if (data.data && data.data.entries) {
+            const itemsTienda = data.data.entries.map(entry => ({
+                ...entry,
+                price: entry.finalPrice,
+                name: entry.devName || entry.displayName,
+                description: entry.displayDescription,
+                images: {
+                    icon: entry.newDisplayAsset?.materialInstances?.[0]?.images?.OfferImage || 
+                          entry.displayAssets?.[0]?.url
+                },
+                type: { displayValue: 'Tienda' },
+                rarity: entry.rarity || { value: 'rare' }
+            }));
+            
+            todosLosItems = itemsTienda;
+            renderizarItems(itemsTienda);
+        } else {
+            mostrarError('No se pudo cargar la tienda diaria');
+        }
     } catch (error) {
-        mostrarError('No se pudieron cargar los personajes de Dragon Ball Z');
-        console.error(error);
+        mostrarError('No se pudo cargar la tienda diaria');
+        console.error('Error en cargarTiendaDiaria:', error);
     }
 }
 
-// Cargar dragones
-async function cargarDragones() {
+// Cargar todos los cosméticos
+async function cargarCosmeticos() {
     mostrarLoading();
     try {
-        const response = await fetch(`${API_BASE}/characters?limit=100`);
-        const data = await response.json();
-        const personajes = data.items || data;
-        const dragones = personajes.filter(p => 
-            p.race && p.race.toLowerCase().includes('dragon')
+        const data = await fetchAPI('/cosmetics/br');
+        
+        if (data.data) {
+            todosLosItems = data.data;
+            return data.data;
+        }
+        return [];
+    } catch (error) {
+        console.error('Error en cargarCosmeticos:', error);
+        throw error;
+    }
+}
+
+// Cargar skins
+async function cargarSkins() {
+    mostrarLoading();
+    try {
+        const items = await cargarCosmeticos();
+        const skins = items.filter(item => 
+            item.type?.value === 'outfit' || item.type?.displayValue?.toLowerCase().includes('skin')
         );
-        renderizarPersonajes(dragones);
+        renderizarItems(skins.slice(0, 50)); // Limitar a 50 para mejor rendimiento
     } catch (error) {
-        mostrarError('No se pudieron cargar los dragones');
-        console.error(error);
+        mostrarError('No se pudieron cargar las skins');
+        console.error('Error en cargarSkins:', error);
     }
 }
 
-// Cargar todos los personajes
+// Cargar emotes
+async function cargarEmotes() {
+    mostrarLoading();
+    try {
+        const items = await cargarCosmeticos();
+        const emotes = items.filter(item => 
+            item.type?.value === 'emote'
+        );
+        renderizarItems(emotes.slice(0, 50));
+    } catch (error) {
+        mostrarError('No se pudieron cargar los emotes');
+        console.error('Error en cargarEmotes:', error);
+    }
+}
+
+// Cargar picos
+async function cargarPickaxes() {
+    mostrarLoading();
+    try {
+        const items = await cargarCosmeticos();
+        const pickaxes = items.filter(item => 
+            item.type?.value === 'pickaxe'
+        );
+        renderizarItems(pickaxes.slice(0, 50));
+    } catch (error) {
+        mostrarError('No se pudieron cargar los picos');
+        console.error('Error en cargarPickaxes:', error);
+    }
+}
+
+// Cargar todos los items
 async function cargarTodos() {
     mostrarLoading();
     try {
-        const response = await fetch(`${API_BASE}/characters?limit=100`);
-        const data = await response.json();
-        todosLosPersonajes = data.items || data;
-        renderizarPersonajes(todosLosPersonajes);
+        const items = await cargarCosmeticos();
+        todosLosItems = items;
+        renderizarItems(items.slice(0, 50)); // Mostrar primeros 50
     } catch (error) {
-        mostrarError('No se pudieron cargar los personajes');
-        console.error(error);
+        mostrarError('No se pudieron cargar los items');
+        console.error('Error en cargarTodos:', error);
     }
 }
 
-// Buscar personaje
-function buscarPersonaje() {
-    const busqueda = document.getElementById('searchInput').value.toLowerCase().trim();
+// Buscar item
+function buscarItem() {
+    const searchInput = document.getElementById('searchInput');
+    
+    if (!searchInput) {
+        console.error('No se encontró el input de búsqueda');
+        return;
+    }
+    
+    const busqueda = searchInput.value.toLowerCase().trim();
     
     if (!busqueda) {
-        renderizarPersonajes(todosLosPersonajes);
+        renderizarItems(todosLosItems.slice(0, 50));
         return;
     }
 
-    const resultados = todosLosPersonajes.filter(personaje => 
-        personaje.name.toLowerCase().includes(busqueda) ||
-        (personaje.race && personaje.race.toLowerCase().includes(busqueda))
+    const resultados = todosLosItems.filter(item => 
+        item.name?.toLowerCase().includes(busqueda) ||
+        item.description?.toLowerCase().includes(busqueda) ||
+        item.type?.displayValue?.toLowerCase().includes(busqueda)
     );
 
-    renderizarPersonajes(resultados);
+    console.log(`Búsqueda: "${busqueda}" - Resultados: ${resultados.length}`);
+    renderizarItems(resultados.slice(0, 50));
 }
 
 // Buscar al presionar Enter
 function buscarEnter(event) {
     if (event.key === 'Enter') {
-        buscarPersonaje();
+        buscarItem();
     }
 }
 
-// Cargar personajes al iniciar
+// Cargar tienda al iniciar
 window.onload = () => {
-    cargarTodos();
+    console.log('Página cargada - Cargando tienda diaria de Fortnite');
+    cargarTiendaDiaria();
 };
+
+console.log('Script de Fortnite API cargado correctamente');

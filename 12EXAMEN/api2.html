@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragon Ball API</title>
+    <title>Fortnite API</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1> DRAGON BALL API </h1>
-            <h1>Sanchez Rosete</h1>
-            <p>Explora el universo de Dragon Ball</p>
+            <h1>⚡ FORTNITE API ⚡</h1>
+            <p>Explora cosméticos, skins y la tienda diaria</p>
         </header>
 
         <div class="controls">
-            <button onclick="cargarPersonajesDB()">Dragon Ball</button>
-            <button onclick="cargarTodos()">Ver Todos</button>
+           
+            <button onclick="cargarSkins()">👤 Skins</button>
+           
+            <button onclick="cargarPickaxes()">⛏️ Picos</button>
+            <button onclick="cargarTodos()">🎮 Ver Todos</button>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Buscar personaje..." onkeypress="buscarEnter(event)">
-            <button class="search-btn" onclick="buscarPersonaje()">🔍 Buscar</button>
+            <input type="text" id="searchInput" placeholder="Buscar por nombre..." onkeypress="buscarEnter(event)">
+            <button class="search-btn" onclick="buscarItem()">🔍 Buscar</button>
         </div>
 
         <div id="content"></div>
 
-        <div id="charactersContainer" class="characters-grid"></div>
+        <div id="itemsContainer" class="items-grid"></div>
     </div>
 
-    <script src="./js/index.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

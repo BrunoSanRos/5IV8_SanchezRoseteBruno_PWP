@@ -1,0 +1,219 @@
+/* Colores Militar */
+:root {
+    --verde-militar: #4A5D23;
+    --verde-oscuro: #2C3E14;
+    --beige: #D4C5A9;
+    --blanco: #FFFFFF;
+    --negro: #1a1a1a;
+    --gris: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--verde-oscuro);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: var(--beige);
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: var(--blanco);
+    font-size: 1.2em;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+button {
+    background: var(--verde-militar);
+    color: var(--beige);
+    border: 3px solid var(--beige);
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background: var(--beige);
+    color: var(--verde-oscuro);
+    border-color: var(--verde-militar);
+    transform: scale(1.05);
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+input[type="text"] {
+    padding: 12px 20px;
+    border: 3px solid var(--beige);
+    border-radius: 8px;
+    font-size: 16px;
+    width: 300px;
+    background: var(--blanco);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--verde-militar);
+}
+
+.search-btn {
+    border-radius: 8px;
+}
+
+.loading {
+    text-align: center;
+    color: var(--blanco);
+    font-size: 24px;
+    margin: 50px 0;
+}
+
+.spinner {
+    border: 4px solid var(--beige);
+    border-top: 4px solid var(--verde-militar);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.item-card {
+    background: var(--negro);
+    border: 3px solid var(--verde-militar);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.item-card:hover {
+    transform: scale(1.05);
+    border-color: var(--beige);
+    box-shadow: 0 0 20px rgba(74, 93, 35, 0.6);
+}
+
+.item-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-militar));
+}
+
+.item-rarity {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--blanco);
+}
+
+.rarity-common { background: var(--gris); }
+.rarity-uncommon { background: #4A5D23; }
+.rarity-rare { background: #2C3E14; }
+.rarity-epic { background: #8B7355; }
+.rarity-legendary { background: #D4C5A9; color: var(--negro); }
+.rarity-mythic { background: var(--negro); border: 2px solid var(--beige); }
+
+.item-info {
+    padding: 15px;
+}
+
+.item-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--beige);
+    margin-bottom: 8px;
+}
+
+.item-description {
+    font-size: 13px;
+    color: var(--gris);
+    margin-bottom: 8px;
+}
+
+.item-detail {
+    font-size: 13px;
+    color: var(--blanco);
+    margin: 5px 0;
+}
+
+.item-detail strong {
+    color: var(--beige);
+}
+
+.item-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--beige);
+    margin-top: 10px;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--blanco);
+    font-size: 24px;
+    margin: 50px 0;
+    background: var(--verde-militar);
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid var(--beige);
+}
+
+.error {
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 20px;
+    border: 3px solid var(--beige);
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+}
