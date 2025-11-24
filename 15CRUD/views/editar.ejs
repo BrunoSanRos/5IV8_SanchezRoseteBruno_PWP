@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Registro</title>
+    <link rel="stylesheet" href="../stylesCRUD.css">
+</head>
+<body>
+
+<h1>Editar Registro</h1>
+
+<form action="/actualizar/<%= dato.id %>" method="POST">
+
+    <input name="id_equipo" value="<%= dato.id_equipo %>" required>
+
+    <label>Fecha Programada:</label>
+    <input type="datetime-local" 
+           name="fecha_programada" 
+           value="<%= dato.fecha_programada.toISOString().slice(0,16) %>" required>
+
+    <label>Fecha Ejecución:</label>
+    <input type="datetime-local" 
+           name="fecha_ejecucion" 
+           value="<%= dato.fecha_ejecucion.toISOString().slice(0,16) %>" required>
+
+    <textarea name="tarea_realizada" required><%= dato.tarea_realizada %></textarea>
+
+    <input name="tecnico_responsable" value="<%= dato.tecnico_responsable %>" required>
+
+    <input type="number" name="horas_ciclos" value="<%= dato.horas_ciclos %>" required>
+
+    <select name="estado_servicio" required>
+        <option <%= dato.estado_servicio == 'Óptimo' ? 'selected':'' %>>Óptimo</option>
+        <option <%= dato.estado_servicio == 'Requiere seguimiento' ? 'selected':'' %>>Requiere seguimiento</option>
+        <option <%= dato.estado_servicio == 'Pendiente de pieza' ? 'selected':'' %>>Pendiente de pieza</option>
+    </select>
+
+    <button class="btn">Actualizar</button>
+</form>
+
+</body>
+</html>

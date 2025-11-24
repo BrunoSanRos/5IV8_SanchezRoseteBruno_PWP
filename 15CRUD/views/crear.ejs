@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuevo Registro</title>
+   <link rel="stylesheet" href="../stylesCRUD.css">
+</head>
+<body>
+
+<h1>Crear Registro</h1>
+
+<form action="/guardar" method="POST">
+
+    <input name="id_equipo" required placeholder="ID de Equipo">
+
+    <label>Fecha Programada:</label>
+    <input type="datetime-local" name="fecha_programada" required>
+
+    <label>Fecha Ejecución:</label>
+    <input type="datetime-local" name="fecha_ejecucion" required>
+
+    <textarea name="tarea_realizada" required placeholder="Tarea Realizada"></textarea>
+
+    <input name="tecnico_responsable" required placeholder="Técnico Responsable">
+
+    <input type="number" name="horas_ciclos" required placeholder="Horas/Ciclos">
+
+    <select name="estado_servicio" required>
+        <option>Óptimo</option>
+        <option>Requiere seguimiento</option>
+        <option>Pendiente de pieza</option>
+    </select>
+
+    <button class="btn">Guardar</button>
+</form>
+
+</body>
+</html>

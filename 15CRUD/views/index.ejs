@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bitácora</title>
+    <link rel="stylesheet" href="../stylesCRUD.css">
+</head>
+<body>
+
+<h1>Bitácora de Mantenimiento</h1>
+
+<a class="btn" href="/crear">➕ Nuevo Registro</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Equipo</th>
+        <th>Fecha Programada</th>
+        <th>Fecha Ejecución</th>
+        <th>Tarea</th>
+        <th>Técnico</th>
+        <th>Horas/Ciclos</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+
+    <% datos.forEach(d => { %>
+    <tr>
+        <td><%= d.id %></td>
+        <td><%= d.id_equipo %></td>
+        <td><%= d.fecha_programada %></td>
+        <td><%= d.fecha_ejecucion %></td>
+        <td><%= d.tarea_realizada %></td>
+        <td><%= d.tecnico_responsable %></td>
+        <td><%= d.horas_ciclos %></td>
+        <td><%= d.estado_servicio %></td>
+        <td>
+            <a class="btn-edit" href="/editar/<%= d.id %>">Editar</a>
+            <a class="btn-delete" href="/eliminar/<%= d.id %>">Eliminar</a>
+        </td>
+    </tr>
+    <% }) %>
+
+</table>
+</body>
+</html>
